@@ -679,6 +679,292 @@
       color: var(--primary);
     }
 
+    /* LIVE ROOMS */
+    .live-rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .live-room-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .live-room-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .live-room-card .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FF3B30;
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+    }
+
+    .live-badge .pulse {
+      width: 6px;
+      height: 6px;
+      background: var(--white);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .live-room-card .room-theme {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(255, 107, 53, 0.08);
+      padding: 3px 10px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-left: 8px;
+    }
+
+    .live-room-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+    }
+
+    .live-room-card .room-desc {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .room-participants {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .room-participants .avatars {
+      display: flex;
+    }
+
+    .room-participants .avatars .mini-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--white);
+      border: 2px solid var(--white);
+      margin-left: -8px;
+    }
+
+    .room-participants .avatars .mini-avatar:first-child {
+      margin-left: 0;
+    }
+
+    .room-participants .count {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-left: 4px;
+    }
+
+    /* CHAT ROOM */
+    .chatroom {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 24px;
+      width: 400px;
+      max-height: 520px;
+      background: var(--white);
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: 0 -4px 32px rgba(61, 43, 31, 0.15);
+      z-index: 150;
+      flex-direction: column;
+      animation: slideUp 0.3s ease;
+    }
+
+    .chatroom.open {
+      display: flex;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .chat-header {
+      padding: 16px 20px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: var(--white);
+      border-radius: var(--radius) var(--radius) 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-header .chat-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .chat-header .chat-info {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .chat-header .chat-close {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: var(--white);
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .chat-header .chat-close:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 360px;
+      min-height: 300px;
+      background: var(--bg);
+    }
+
+    .chat-msg {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .chat-msg .msg-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .chat-msg .msg-body {
+      flex: 1;
+    }
+
+    .chat-msg .msg-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+
+    .chat-msg .msg-name .msg-type {
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--primary);
+      background: rgba(255,107,53,0.08);
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+    }
+
+    .chat-msg .msg-text {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+      background: var(--white);
+      padding: 8px 12px;
+      border-radius: 4px 12px 12px 12px;
+      display: inline-block;
+      max-width: 100%;
+      word-break: break-word;
+    }
+
+    .chat-msg .msg-time {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      margin-top: 3px;
+    }
+
+    .chat-input-area {
+      padding: 12px 16px;
+      border-top: 1px solid rgba(61, 43, 31, 0.06);
+      display: flex;
+      gap: 8px;
+      background: var(--white);
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid rgba(61, 43, 31, 0.1);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      background: var(--bg);
+      transition: border-color 0.2s;
+    }
+
+    .chat-input-area input:focus {
+      border-color: var(--primary);
+    }
+
+    .chat-input-area button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .chat-input-area button:hover {
+      background: var(--primary-dark);
+    }
+
     /* RESPONSIVE */
     @media (max-width: 768px) {
       .nav-links { display: none; }
@@ -701,6 +987,8 @@
       .author-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
       .detail-header h1 { font-size: 1.6rem; }
       .profile-stats { gap: 20px; }
+      .live-rooms-grid { grid-template-columns: 1fr; }
+      .chatroom { right: 0; width: 100%; border-radius: 16px 16px 0 0; }
     }
 
     /* MODAL */
@@ -1063,6 +1351,28 @@
           <div class="author-grid" id="popularAuthors"></div>
         </div>
       </div>
+
+      <div class="section">
+        <h2 class="section-title">라이브 소통방</h2>
+        <p class="section-subtitle">작가와 독자가 함께 이야기하는 실시간 토론 공간</p>
+        <div class="live-rooms-grid" id="liveRooms"></div>
+      </div>
+    </div>
+
+    <!-- CHAT ROOM POPUP -->
+    <div class="chatroom" id="chatRoom">
+      <div class="chat-header">
+        <div>
+          <div class="chat-title" id="chatRoomTitle"></div>
+          <div class="chat-info" id="chatRoomInfo"></div>
+        </div>
+        <button class="chat-close" onclick="closeChatRoom()">&times;</button>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="메시지를 입력하세요..." onkeydown="if(event.key==='Enter')sendChat()">
+        <button onclick="sendChat()">&#10148;</button>
+      </div>
     </div>
 
     <!-- WORKS PAGE -->
@@ -1317,6 +1627,7 @@
       const featured = works.filter(w => w.featured);
       document.getElementById('featuredWorks').innerHTML = featured.map(renderCard).join('');
       document.getElementById('popularAuthors').innerHTML = authors.slice(0, 4).map(renderAuthorCard).join('');
+      renderLiveRooms();
     }
 
     function renderWorks(filter = '전체') {
@@ -1442,6 +1753,136 @@
 
     function toggleMobileNav() {
       document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // --- LIVE ROOMS ---
+    const liveRooms = [
+      { id: 1, title: '올해의 책, 무엇을 읽으셨나요?', theme: '책', desc: '2026년 상반기 베스트 도서에 대해 자유롭게 이야기해요.', participants: 24, active: true,
+        users: [{name:'독서광',color:'#FF6B35',type:'독자'},{name:'김하늘',color:'#F7931E',type:'작가'},{name:'책사랑',color:'#E55A2B',type:'독자'},{name:'박지우',color:'#FFA500',type:'작가'}],
+        messages: [
+          {user:'독서광',color:'#FF6B35',type:'독자',text:'요즘 SF 소설에 완전 빠졌어요. 추천 좀 해주세요!',time:'14:32'},
+          {user:'김하늘',color:'#F7931E',type:'작가',text:'저도 SF 좋아해요! "2087년의 서울" 읽어보셨나요?',time:'14:33'},
+          {user:'박지우',color:'#FFA500',type:'작가',text:'판타지도 좋지만 SF의 매력이 확실히 다르죠. 과학적 상상력이라는 게 정말 끝이 없어요.',time:'14:34'},
+          {user:'책사랑',color:'#E55A2B',type:'독자',text:'저는 에세이 위주로 읽는데, 가끔 소설도 읽으면 좋더라구요',time:'14:35'},
+          {user:'독서광',color:'#FF6B35',type:'독자',text:'장르를 가리지 않고 읽는 게 제일 좋은 것 같아요 ㅎㅎ',time:'14:36'},
+        ]},
+      { id: 2, title: 'AI 시대, 글쓰기의 의미는?', theme: '사회', desc: 'AI가 글을 쓰는 시대, 인간의 창작은 어떤 의미를 가질까요?', participants: 18, active: true,
+        users: [{name:'이서준',color:'#F7931E',type:'작가'},{name:'생각쟁이',color:'#D4451A',type:'독자'},{name:'최예린',color:'#FFA500',type:'작가'}],
+        messages: [
+          {user:'생각쟁이',color:'#D4451A',type:'독자',text:'AI가 쓴 글과 사람이 쓴 글, 구분할 수 있을까요?',time:'15:01'},
+          {user:'이서준',color:'#F7931E',type:'작가',text:'기술적으로는 점점 어려워지겠지만, 진정성의 차이는 분명 있다고 봐요.',time:'15:02'},
+          {user:'최예린',color:'#FFA500',type:'작가',text:'저는 AI를 도구로 활용하되, 핵심 감정은 직접 담아야 한다고 생각해요.',time:'15:03'},
+        ]},
+      { id: 3, title: '단편소설 합평회', theme: '창작', desc: '이번 주 올라온 단편소설을 함께 읽고 이야기 나눠요.', participants: 12, active: true,
+        users: [{name:'한소희',color:'#FF8C42',type:'작가'},{name:'문학소녀',color:'#FF6B35',type:'독자'},{name:'정민호',color:'#D4451A',type:'작가'}],
+        messages: [
+          {user:'문학소녀',color:'#FF6B35',type:'독자',text:'"오렌지빛 거리에서" 읽고 왔어요. 너무 따뜻한 이야기!',time:'16:10'},
+          {user:'한소희',color:'#FF8C42',type:'작가',text:'저도요! 첫 문장부터 몰입이 되더라구요.',time:'16:11'},
+          {user:'정민호',color:'#D4451A',type:'작가',text:'배경 묘사가 특히 좋았어요. 가을 분위기가 물씬.',time:'16:12'},
+        ]},
+      { id: 4, title: '요즘 뭐 읽어? 자유 수다방', theme: '자유', desc: '장르 불문! 읽고 있는 책, 보고 있는 영화, 아무 이야기나 해요.', participants: 31, active: true,
+        users: [{name:'수다쟁이',color:'#F7931E',type:'독자'},{name:'책벌레',color:'#E55A2B',type:'독자'},{name:'김하늘',color:'#FF6B35',type:'작가'}],
+        messages: [
+          {user:'수다쟁이',color:'#F7931E',type:'독자',text:'넷플릭스에서 본 드라마가 원작 소설이 있대요!',time:'17:20'},
+          {user:'책벌레',color:'#E55A2B',type:'독자',text:'뭔데뭔데? 알려줘요!',time:'17:21'},
+          {user:'김하늘',color:'#FF6B35',type:'작가',text:'영상화되면 원작이 더 궁금해지죠 ㅎㅎ',time:'17:22'},
+        ]},
+    ];
+
+    let currentChatRoom = null;
+
+    function renderLiveRooms() {
+      document.getElementById('liveRooms').innerHTML = liveRooms.map(room => `
+        <div class="live-room-card" onclick="openChatRoom(${room.id})">
+          <div>
+            <span class="live-badge"><span class="pulse"></span> LIVE</span>
+            <span class="room-theme">${room.theme}</span>
+          </div>
+          <h4>${room.title}</h4>
+          <div class="room-desc">${room.desc}</div>
+          <div class="room-participants">
+            <div class="avatars">
+              ${room.users.slice(0, 4).map(u => `<div class="mini-avatar" style="background:${u.color};">${u.name.charAt(0)}</div>`).join('')}
+            </div>
+            <span class="count">${room.participants}명 참여 중</span>
+          </div>
+        </div>`).join('');
+    }
+
+    function openChatRoom(roomId) {
+      const room = liveRooms.find(r => r.id === roomId);
+      if (!room) return;
+      currentChatRoom = room;
+
+      document.getElementById('chatRoomTitle').textContent = room.title;
+      document.getElementById('chatRoomInfo').textContent = room.theme + ' · ' + room.participants + '명 참여 중';
+
+      const messagesEl = document.getElementById('chatMessages');
+      messagesEl.innerHTML = room.messages.map(m => `
+        <div class="chat-msg">
+          <div class="msg-avatar" style="background:${m.color};">${m.user.charAt(0)}</div>
+          <div class="msg-body">
+            <div class="msg-name">${m.user}<span class="msg-type">${m.type}</span></div>
+            <div class="msg-text">${m.text}</div>
+            <div class="msg-time">${m.time}</div>
+          </div>
+        </div>`).join('');
+
+      document.getElementById('chatRoom').classList.add('open');
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function closeChatRoom() {
+      document.getElementById('chatRoom').classList.remove('open');
+      currentChatRoom = null;
+    }
+
+    function sendChat() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text || !currentChatRoom) return;
+
+      const now = new Date();
+      const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+
+      const messagesEl = document.getElementById('chatMessages');
+      const msgHtml = `
+        <div class="chat-msg">
+          <div class="msg-avatar" style="background:var(--primary);">나</div>
+          <div class="msg-body">
+            <div class="msg-name">나<span class="msg-type">독자</span></div>
+            <div class="msg-text">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+            <div class="msg-time">${time}</div>
+          </div>
+        </div>`;
+      messagesEl.insertAdjacentHTML('beforeend', msgHtml);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      input.value = '';
+
+      // simulate reply
+      setTimeout(() => {
+        if (!currentChatRoom) return;
+        const replies = [
+          {user:'김하늘',color:'#FF6B35',type:'작가',texts:['좋은 의견이네요!','공감해요 ㅎㅎ','저도 같은 생각이에요.','재밌는 관점이네요!']},
+          {user:'책사랑',color:'#E55A2B',type:'독자',texts:['오 그렇군요!','맞아요 맞아요!','더 이야기해주세요!','흥미롭네요~']},
+          {user:'이서준',color:'#F7931E',type:'작가',texts:['동감합니다.','그 부분이 핵심이죠.','새로운 시각이네요!','좋은 포인트에요.']},
+        ];
+        const reply = replies[Math.floor(Math.random() * replies.length)];
+        const replyText = reply.texts[Math.floor(Math.random() * reply.texts.length)];
+        const replyTime = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+
+        const replyHtml = `
+          <div class="chat-msg">
+            <div class="msg-avatar" style="background:${reply.color};">${reply.user.charAt(0)}</div>
+            <div class="msg-body">
+              <div class="msg-name">${reply.user}<span class="msg-type">${reply.type}</span></div>
+              <div class="msg-text">${replyText}</div>
+              <div class="msg-time">${replyTime}</div>
+            </div>
+          </div>`;
+        messagesEl.insertAdjacentHTML('beforeend', replyHtml);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }, 1500);
     }
 
     // --- AUTH MODAL ---
