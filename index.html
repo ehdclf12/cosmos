@@ -1595,19 +1595,10 @@
   <!-- NAV -->
   <nav>
     <div class="nav-logo" onclick="navigate('home')">COSMOS</div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home" class="active" data-page="home">홈</a></li>
-      <li><a href="#works" data-page="works">작품</a></li>
-      <li><a href="#authors" data-page="authors">작가</a></li>
-      <li><a href="#bookstore" data-page="bookstore">서점</a></li>
-    </ul>
     <div class="nav-actions">
-      <button class="btn btn-ghost" onclick="openModal('login')">Log 
-        in</button>
-      <button class="btn btn-primary" onclick="openModal('signup')">Sing up</button>
+      <button class="btn btn-ghost" onclick="openModal('login')">Log in</button>
+      <button class="btn btn-primary" onclick="openModal('signup')">Sign up</button>
     </div>
-
-    <button class="nav-hamburger" onclick="toggleMobileNav()">&#9776;</button>
   </nav>
 
   <!-- SIDEBAR -->
@@ -1836,41 +1827,8 @@
   </div>
 
   <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>COSMOS</h4>
-        <p>작가와 독자가 함께 만들어가는 창작의 우주. 이야기로 연결되는 사람들의 공간입니다.</p>
-      </div>
-      <div class="footer-section">
-        <h4>둘러보기</h4>
-        <ul class="footer-links">
-          <li><a onclick="navigate('home')">홈</a></li>
-          <li><a onclick="navigate('works')">작품</a></li>
-          <li><a onclick="navigate('authors')">작가</a></li>
-          <li><a onclick="navigate('bookstore')">서점</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>서점</h4>
-        <ul class="footer-links">
-          <li><a onclick="navigate('bookstore')">전체 도서</a></li>
-          <li><a onclick="navigateBookstore('소설')">소설</a></li>
-          <li><a onclick="navigateBookstore('시')">시</a></li>
-          <li><a onclick="navigateBookstore('판타지')">판타지</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>고객지원</h4>
-        <ul class="footer-links">
-          <li><a>이용약관</a></li>
-          <li><a>개인정보처리방침</a></li>
-          <li><a>문의하기</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      &copy; 2026 COSMOS. All rights reserved.
-    </div>
+    <p><strong>COSMOS</strong> — 작가와 독자가 함께하는 창작의 공간</p>
+    <p style="margin-top: 8px;">&copy; 2026 COSMOS. All rights reserved.</p>
   </footer>
 
   <script>
