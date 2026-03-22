@@ -138,14 +138,98 @@
     .page { display: none; }
     .page.active { display: block; }
 
+    /* FULL-PAGE SCROLL SNAP (home only) */
+    body:has(#page-home.active) { overflow: hidden; }
+    body:has(#page-home.active) #mainFooter { display: none; }
+
+    #page-home.active {
+      height: calc(100vh - 64px);
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .snap-section {
+      height: calc(100vh - 64px);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* content snap sections: start from top, no overflow clip on x */
+    .snap-content {
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .snap-content .section {
+      padding-top: 48px;
+      padding-bottom: 32px;
+    }
+
+    /* footer snap section */
+    .snap-footer-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .snap-footer {
+      background: transparent;
+      color: var(--text-mid);
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    .snap-footer strong {
+      color: var(--primary);
+    }
+
+    /* Scroll indicator dots */
+    .snap-dots {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 50;
+    }
+
+    .snap-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(61, 43, 31, 0.2);
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    .snap-dot.active {
+      background: var(--primary);
+      transform: scale(1.3);
+    }
+
     /* HERO */
     .hero {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent) 100%);
-      padding: 80px 24px;
+      padding: 0 24px;
       text-align: center;
       color: var(--white);
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .hero::before {
@@ -1256,6 +1340,7 @@
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
+      .snap-dots { display: none !important; }
       .nav-links { display: none; }
       .nav-hamburger { display: block; }
       .nav-links.open {
@@ -1639,8 +1724,18 @@
 
   <main>
     <!-- HOME PAGE -->
+    <!-- Snap indicator dots (only visible on home) -->
+    <div class="snap-dots" id="snapDots">
+      <button class="snap-dot active" onclick="scrollToSnap(0)"></button>
+      <button class="snap-dot" onclick="scrollToSnap(1)"></button>
+      <button class="snap-dot" onclick="scrollToSnap(2)"></button>
+      <button class="snap-dot" onclick="scrollToSnap(3)"></button>
+      <button class="snap-dot" onclick="scrollToSnap(4)"></button>
+    </div>
+
     <div id="page-home" class="page active">
-      <div class="hero">
+      <!-- 1. COSMOS 히어로 -->
+      <div class="hero snap-section">
         <div class="hero-content">
           <h1>이야기가 만나는 곳,<br>COSMOS</h1>
           <p>작가와 독자가 함께 만들어가는 창작의 우주.<br>당신의 이야기를 세상과 나누세요.</p>
@@ -1648,24 +1743,40 @@
         </div>
       </div>
 
-      <div class="section">
-        <h2 class="section-title">이달의 추천 작품</h2>
-        <p class="section-subtitle">에디터가 엄선한 이번 주 추천 작품</p>
-        <div class="card-grid" id="featuredWorks"></div>
+      <!-- 2. 이달의 추천 작품 -->
+      <div class="snap-section snap-content">
+        <div class="section" style="width:100%;">
+          <h2 class="section-title">이달의 추천 작품</h2>
+          <p class="section-subtitle">에디터가 엄선한 이번 주 추천 작품</p>
+          <div class="card-grid" id="featuredWorks"></div>
+        </div>
       </div>
 
-      <div class="section" style="background: var(--bg-warm); max-width: 100%; padding: 60px 24px;">
-        <div style="max-width: 1200px; margin: 0 auto;">
+      <!-- 3. 인기 작가 -->
+      <div class="snap-section snap-content" style="background: var(--bg-warm);">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 48px 24px; width:100%;">
           <h2 class="section-title">인기 작가</h2>
           <p class="section-subtitle">이번 달 가장 사랑받는 작가들</p>
           <div class="author-grid" id="popularAuthors"></div>
         </div>
       </div>
 
-      <div class="section">
-        <h2 class="section-title">라이브 소통방</h2>
-        <p class="section-subtitle">작가와 독자가 함께 이야기하는 실시간 토론 공간</p>
-        <div class="live-rooms-grid" id="liveRooms"></div>
+      <!-- 4. 라이브 소통방 -->
+      <div class="snap-section snap-content">
+        <div class="section" style="width:100%;">
+          <h2 class="section-title">라이브 소통방</h2>
+          <p class="section-subtitle">작가와 독자가 함께 이야기하는 실시간 토론 공간</p>
+          <div class="live-rooms-grid" id="liveRooms"></div>
+        </div>
+      </div>
+
+      <!-- 5. 푸터 -->
+      <div class="snap-section snap-footer-section">
+        <footer class="snap-footer">
+          <p><strong>COSMOS</strong> — 작가와 독자가 함께하는 창작의 공간
+          by 강도영</p>
+          <p style="margin-top: 8px;">&copy; 2026 COSMOS. All rights reserved.</p>
+        </footer>
       </div>
     </div>
 
@@ -1841,7 +1952,7 @@
     </div>
   </div>
 
-  <footer>
+  <footer id="mainFooter">
     <p><strong>COSMOS</strong> — 작가와 독자가 함께하는 창작의 공간</p>
     <p style="margin-top: 8px;">&copy; 2026 COSMOS. All rights reserved.</p>
   </footer>
@@ -2042,7 +2153,39 @@
       if (page !== 'detail' && page !== 'profile') {
         window.location.hash = page;
       }
-      window.scrollTo(0, 0);
+
+      // snap dots visibility
+      document.getElementById('snapDots').style.display = page === 'home' ? 'flex' : 'none';
+
+      if (page === 'home') {
+        const el = document.getElementById('page-home');
+        el.scrollTo(0, 0);
+        updateSnapDot(0);
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // --- SNAP SCROLL ---
+    function scrollToSnap(index) {
+      const el = document.getElementById('page-home');
+      const sectionH = el.clientHeight;
+      el.scrollTo({ top: index * sectionH, behavior: 'smooth' });
+    }
+
+    function updateSnapDot(index) {
+      document.querySelectorAll('.snap-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === index);
+      });
+    }
+
+    function initSnapObserver() {
+      const container = document.getElementById('page-home');
+      if (!container) return;
+      container.addEventListener('scroll', () => {
+        const index = Math.round(container.scrollTop / container.clientHeight);
+        updateSnapDot(index);
+      }, { passive: true });
     }
 
     function handleHash() {
@@ -2375,6 +2518,7 @@
     renderAuthors();
     renderBookstore();
     handleHash();
+    initSnapObserver();
   </script>
 </body>
 </html>
