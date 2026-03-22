@@ -222,14 +222,12 @@
     /* HERO */
     .hero {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent) 100%);
-      padding: 0 24px;
-      text-align: center;
+      padding: 0;
       color: var(--white);
       position: relative;
       overflow: hidden;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: stretch;
     }
 
     .hero::before {
@@ -241,12 +239,45 @@
       height: 200%;
       background: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
       background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .hero-content {
       position: relative;
-      max-width: 700px;
-      margin: 0 auto;
+      z-index: 2;
+      flex: 0 0 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 60px;
+      text-align: left;
+    }
+
+    .hero-image-wrap {
+      flex: 0 0 50%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .hero-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        var(--primary) 0%,
+        rgba(255, 107, 53, 0.4) 40%,
+        rgba(255, 165, 0, 0.15) 100%
+      );
+      mix-blend-mode: multiply;
     }
 
     .hero h1 {
@@ -1341,6 +1372,9 @@
     /* RESPONSIVE */
     @media (max-width: 768px) {
       .snap-dots { display: none !important; }
+      .hero { flex-direction: column; }
+      .hero-content { flex: none; padding: 40px 24px; text-align: center; }
+      .hero-image-wrap { flex: none; height: 240px; width: 100%; }
       .nav-links { display: none; }
       .nav-hamburger { display: block; }
       .nav-links.open {
@@ -1736,10 +1770,16 @@
     <div id="page-home" class="page active">
       <!-- 1. COSMOS 히어로 -->
       <div class="hero snap-section">
+        <!-- 왼쪽: 텍스트 -->
         <div class="hero-content">
           <h1>이야기가 만나는 곳,<br>COSMOS</h1>
           <p>작가와 독자가 함께 만들어가는 창작의 우주.<br>당신의 이야기를 세상과 나누세요.</p>
           <button class="btn" onclick="navigate('works')">작품 둘러보기</button>
+        </div>
+        <!-- 오른쪽: 이미지 -->
+        <div class="hero-image-wrap">
+          <img src="KakaoTalk_Photo_2026-03-22-22-30-00 001.png" alt="COSMOS" class="hero-photo">
+          <div class="hero-image-overlay"></div>
         </div>
       </div>
 
