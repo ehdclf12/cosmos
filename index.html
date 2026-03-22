@@ -1372,9 +1372,6 @@
     /* RESPONSIVE */
     @media (max-width: 768px) {
       .snap-dots { display: none !important; }
-      .hero { flex-direction: column; }
-      .hero-content { flex: none; padding: 40px 24px; text-align: center; }
-      .hero-image-wrap { flex: none; height: 240px; width: 100%; }
       .nav-links { display: none; }
       .nav-hamburger { display: block; }
       .nav-links.open {
@@ -1389,6 +1386,10 @@
         border-bottom: 1px solid rgba(255,107,53,0.1);
         box-shadow: 0 8px 24px rgba(0,0,0,0.08);
       }
+      .hero { flex-direction: column; align-items: stretch; }
+      .hero-content { flex: none; padding: 40px 24px 28px; text-align: center; }
+      .hero-image-wrap { flex: none; width: 100%; height: auto; min-height: 0; }
+      .hero-photo { object-fit: contain; height: auto; width: 100%; }
       .hero h1 { font-size: 2rem; }
       .hero p { font-size: 1rem; }
       .card-grid { grid-template-columns: 1fr; }
