@@ -135,8 +135,21 @@
       color: var(--text-dark);
     }
 
-    .page { display: none; }
-    .page.active { display: block; }
+    .page {
+      display: none;
+      opacity: 0;
+    }
+    .page.active {
+      display: block;
+      opacity: 1;
+      transition: opacity 0.28s ease;
+    }
+    .page.fade-out {
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
 
     /* FULL-PAGE SCROLL SNAP (home only) */
     body:has(#page-home.active) { overflow: hidden; }
@@ -2179,32 +2192,59 @@
     }
 
     // --- NAVIGATION ---
+    let _navigating = false;
     function navigate(page) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page-' + page).classList.add('active');
+      if (_navigating) return;
+      const current = document.querySelector('.page.active');
+      const next = document.getElementById('page-' + page);
+      if (current === next) return;
 
+      // Update nav/sidebar immediately
       document.querySelectorAll('.nav-links a').forEach(a => {
         a.classList.toggle('active', a.dataset.page === page);
       });
-
       document.querySelectorAll('.sidebar-item').forEach(s => {
         s.classList.toggle('active', s.dataset.page === page);
       });
-
       if (page !== 'detail' && page !== 'profile') {
         window.location.hash = page;
       }
-
-      // snap dots visibility
       document.getElementById('snapDots').style.display = page === 'home' ? 'flex' : 'none';
 
-      if (page === 'home') {
-        const el = document.getElementById('page-home');
-        el.scrollTo(0, 0);
-        updateSnapDot(0);
-      } else {
-        window.scrollTo(0, 0);
+      if (!current) {
+        next.classList.add('active');
+        return;
       }
+
+      _navigating = true;
+
+      // Step 1: fade out current page (0.22s)
+      current.classList.add('fade-out');
+      current.classList.remove('active');
+
+      setTimeout(() => {
+        current.classList.remove('fade-out');
+
+        // Step 2: show next page, start invisible
+        next.style.display = 'block';
+        next.style.opacity = '0';
+        next.style.transition = 'none';
+
+        if (page === 'home') {
+          next.scrollTo && next.scrollTo(0, 0);
+          updateSnapDot(0);
+        } else {
+          window.scrollTo(0, 0);
+        }
+
+        // Force reflow then fade in
+        next.getBoundingClientRect();
+        next.style.transition = '';
+        next.classList.add('active');
+        next.style.opacity = '';
+
+        setTimeout(() => { _navigating = false; }, 300);
+      }, 240);
     }
 
     // --- SNAP SCROLL ---
